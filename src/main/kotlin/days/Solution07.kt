@@ -7,7 +7,6 @@ import kotlin.math.min
 
 private class Step {
     var parents: MutableList<String> = mutableListOf()
-    var children: MutableList<String> = mutableListOf()
 }
 
 private class WorkQueue(private val workers: Int) {
@@ -65,12 +64,11 @@ object Solution07 : Solution<List<List<String>>>(AOC_YEAR, 7) {
         return 61 + (id[0] - 'A')
     }
 
-    override fun solve(input: List<List<String>>): Pair<Any?, Any?> {
+    override fun solve(input: List<List<String>>): Pair<String, Int> {
         val steps = DefaultHashMap<String, Step> { Step() }
         for ((source, dest) in input) {
             val sourceStep = steps[source]
             val destStep = steps[dest]
-            sourceStep.children.add(dest)
             destStep.parents.add(source)
         }
         val stepIds = steps.keys.toSet()
