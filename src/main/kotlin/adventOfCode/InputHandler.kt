@@ -13,7 +13,7 @@ class InputHandler(val year: Int, val day: Int) {
         }
 
         // Download file
-        val url = URI("https://adventofcode.com/2018/day/$day/input").toURL()
+        val url = URI("https://adventofcode.com/$year/day/$day/input").toURL()
         val connection = url.openConnection()
         val sessionFile = File(".\\session.cookie")
         if (!sessionFile.exists()) {
