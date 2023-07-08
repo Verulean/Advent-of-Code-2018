@@ -23,7 +23,7 @@ private fun <T> Sequence<T>.identical(): Boolean {
 
 object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
     private val directions = arrayOf(Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1))
-    private val safeDistance = 10_000
+    private const val safeDistance = 10_000
 
     override fun getInput(handler: InputHandler): List<Point> {
         return handler.getInput("\n") { line ->
@@ -43,8 +43,9 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         val u2 = y2 - y1
         return points
             .asSequence()
-            .filter { p -> p != p1 && p != p2 }
-            .map { p -> parity(u1, u2, p.first - x1, p.second - y1) }
+            .filter { it != p1 && it != p2 }
+            .map { parity(u1, u2, it.first - x1, it.second - y1) }
+            .filter { it != 0 }
             .identical()
     }
 
