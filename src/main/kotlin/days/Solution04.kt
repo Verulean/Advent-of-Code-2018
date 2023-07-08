@@ -2,6 +2,7 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
+import adventOfCode.util.Counter
 import adventOfCode.util.DefaultHashMap
 import adventOfCode.util.ints
 
@@ -53,7 +54,7 @@ object Solution04 : Solution<List<GuardEvent>>(AOC_YEAR, 4) {
         return events
     }
 
-    private fun getSleepMetrics(sleepTimes: HashMap<Int, Int>): Triple<Int, Int, Int> {
+    private fun getSleepMetrics(sleepTimes: Counter<Int>): Triple<Int, Int, Int> {
         val totalSleep = sleepTimes.values.sum()
         val (maxMinute, maxTimesSlept) = sleepTimes.maxBy { it.value }
         return Triple(totalSleep, maxTimesSlept, maxMinute)
@@ -61,7 +62,7 @@ object Solution04 : Solution<List<GuardEvent>>(AOC_YEAR, 4) {
 
     override fun solve(input: List<GuardEvent>): Pair<Int, Int> {
         // Part 1
-        val guardSleepTimes = DefaultHashMap<Int, DefaultHashMap<Int, Int>> { DefaultHashMap { 0 } }
+        val guardSleepTimes = DefaultHashMap<Int, Counter<Int>> { Counter() }
         var (lastInstant, _, currentId) = input[0]
         var lastEdge = 0
         var isAsleep = false

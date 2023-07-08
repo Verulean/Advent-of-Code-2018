@@ -2,6 +2,7 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
+import adventOfCode.util.Counter
 
 object Solution02 : Solution<List<String>>(AOC_YEAR, 2) {
     override fun getInput(handler: InputHandler): List<String> {
@@ -9,11 +10,7 @@ object Solution02 : Solution<List<String>>(AOC_YEAR, 2) {
     }
 
     private fun getLetterFrequencies(id: String): Set<Int> {
-        val counter = HashMap<Char, Int>()
-        for (char in id) {
-            counter[char] = counter.getOrDefault(char, 0) + 1
-        }
-        return counter.values.toSet()
+        return Counter(id.toList()).values.toSet()
     }
 
     private fun lettersInCommon(a: String, b: String): String {
