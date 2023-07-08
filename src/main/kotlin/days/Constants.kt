@@ -1,6 +1,6 @@
 package days
 
-import adventOfCode.Executable
+import adventOfCode.ExecutableSolution
 
 const val AOC_YEAR = 2018
-val Solutions = listOf<Executable>(Solution01, Solution02, Solution03)
+val Solutions = listOf<ExecutableSolution>(Solution01, Solution02, Solution03)

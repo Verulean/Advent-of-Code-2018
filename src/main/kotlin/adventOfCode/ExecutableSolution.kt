@@ -1,6 +1,6 @@
 package adventOfCode
 
-interface Executable {
+interface ExecutableSolution {
     // little agitated penguin
     fun run()
 }

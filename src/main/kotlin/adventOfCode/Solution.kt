@@ -1,6 +1,6 @@
 package adventOfCode
 
-abstract class Solution<T>(private val year: Int, private val day: Int) : Executable {
+abstract class Solution<T>(private val year: Int, private val day: Int) : ExecutableSolution {
     open val inputHandler = InputHandler(year, day)
     abstract fun getInput(handler: InputHandler): T
     abstract fun solve(input: T): Pair<Any?, Any?>
