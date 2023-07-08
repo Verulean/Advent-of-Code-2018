@@ -24,15 +24,12 @@ object Solution09 : Solution<Pair<Int, Int>>(AOC_YEAR, 9) {
                 counterclockwise[marbleValue] = next
                 currentMarble = marbleValue
             } else {
-                val removedMarble = (0 until 7).fold(currentMarble) { acc, _ -> counterclockwise[acc] }
-                val prev = counterclockwise[removedMarble]
-                val next = clockwise[removedMarble]
-                clockwise[prev] = next
-                clockwise[removedMarble] = 0
-                counterclockwise[next] = prev
-                counterclockwise[removedMarble] = 0
-                currentMarble = next
-                scores[marbleValue % players] += (marbleValue + removedMarble).toUInt()
+                repeat(6) { currentMarble = counterclockwise[currentMarble] }
+                val next = counterclockwise[currentMarble]
+                val nextNext = counterclockwise[next]
+                clockwise[nextNext] = currentMarble
+                counterclockwise[currentMarble] = nextNext
+                scores[marbleValue % players] += (marbleValue + next).toUInt()
             }
         }
         return scores.max()
