@@ -29,16 +29,8 @@ class InputHandler(val year: Int, val day: Int) {
         return input.trimEnd('\n')
     }
 
-    fun <T> getInput(transform: (String) -> T): T {
-        return transform(getInput())
-    }
-
     fun getInput(delimiter: String, trim: Boolean = true): List<String> {
-        val data = getInput().split(delimiter)
-        if (trim) {
-            return data.map(String::trim)
-        }
-        return data
+        return getInput(delimiter, trim) { it }
     }
 
     fun <T> getInput(delimiter: String, trim: Boolean = true, transform: (String) -> T): List<T> {
