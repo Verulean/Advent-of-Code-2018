@@ -13,12 +13,12 @@ class InputHandler(val year: Int, val day: Int) {
         }
 
         // Download file
-        val url = URI("https://adventofcode.com/$year/day/$day/input").toURL()
-        val connection = url.openConnection()
         val sessionFile = File(".\\session.cookie")
         if (!sessionFile.exists()) {
             return ""
         }
+        val url = URI("https://adventofcode.com/$year/day/$day/input").toURL()
+        val connection = url.openConnection()
         connection.setRequestProperty("Cookie", "session=${sessionFile.readText().trim()}")
         connection.connect()
         val input = connection.getInputStream().bufferedReader().readText()
