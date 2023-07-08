@@ -1,7 +1,8 @@
 package days
 
-import adventOfCode.*
-import adventOfCode.util.*
+import adventOfCode.InputHandler
+import adventOfCode.Solution
+import adventOfCode.util.DefaultHashMap
 import kotlin.math.min
 
 private class Step {
@@ -9,7 +10,7 @@ private class Step {
     var children: MutableList<String> = mutableListOf()
 }
 
-class WorkQueue(private val workers: Int) {
+private class WorkQueue(private val workers: Int) {
     private val queue: MutableList<Pair<String, Int>?> = MutableList(workers) { null }
 
     val freeWorkers
