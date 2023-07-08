@@ -2,7 +2,6 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
-import adventOfCode.util.Counter
 
 object Solution05 : Solution<String>(AOC_YEAR, 5) {
     private var letters: Set<Char> = HashSet()

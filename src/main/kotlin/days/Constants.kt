@@ -6,5 +6,6 @@ val Solutions = arrayOf(
     Solution02,
     Solution03,
     Solution04,
-    Solution05
+    Solution05,
+    Solution06
 )
