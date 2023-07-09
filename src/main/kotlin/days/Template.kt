@@ -3,11 +3,11 @@ package days
 //import adventOfCode.*
 //import adventOfCode.util.*
 //
-//object Solution00 : Solution<T>(AOC_YEAR, 0) {
-//    override fun getInput(handler: InputHandler): T {
+//object Solution : Solution<Any>(AOC_YEAR, ) {
+//    override fun getInput(handler: InputHandler):  {
 //    }
 //
-//    override fun solve(input: T): Pair<Any?, Any?> {
+//    override fun solve(input: ): Pair<Any?, Any?> {
 //        return Pair(null, null)
 //    }
 //}
