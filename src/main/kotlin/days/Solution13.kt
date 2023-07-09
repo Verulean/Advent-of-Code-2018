@@ -21,16 +21,24 @@ private fun rotate(vector: Point2D, clockwiseTurns: Int = 1): Point2D {
     return indexToDirection[index]
 }
 
+enum class TrackType {
+    INTERSECTION,
+    HORIZONTAL,
+    VERTICAL,
+    CORNER_UP_RIGHT,
+    CORNER_DOWN_RIGHT
+}
+
 private val charToTrack = mapOf(
-    '+' to 0,
-    '-' to 1,
-    '>' to 1,
-    '<' to 1,
-    '|' to 2,
-    '^' to 2,
-    'v' to 2,
-    '/' to 3,
-    '\\' to 4
+    '+' to TrackType.INTERSECTION,
+    '-' to TrackType.HORIZONTAL,
+    '>' to TrackType.HORIZONTAL,
+    '<' to TrackType.HORIZONTAL,
+    '|' to TrackType.VERTICAL,
+    '^' to TrackType.VERTICAL,
+    'v' to TrackType.VERTICAL,
+    '/' to TrackType.CORNER_UP_RIGHT,
+    '\\' to TrackType.CORNER_DOWN_RIGHT
 )
 
 private val cartDirection = mapOf(
@@ -40,7 +48,7 @@ private val cartDirection = mapOf(
     '>' to RIGHT
 )
 
-class Cart(var position: Point2D, private var velocity: Point2D, private val tracks: Map<Point2D, Int>) : Comparable<Cart> {
+class Cart(var position: Point2D, private var velocity: Point2D, private val tracks: Map<Point2D, TrackType>) : Comparable<Cart> {
     private var intersectionChoice = 0
     var crashed = false
 
@@ -55,15 +63,15 @@ class Cart(var position: Point2D, private var velocity: Point2D, private val tra
 
     private fun turnForCorner() {
         velocity = when (Pair(velocity, tracks[position])) {
-            UP to 3 -> RIGHT
-            DOWN to 3 -> LEFT
-            LEFT to 3 -> DOWN
-            RIGHT to 3 -> UP
+            UP to TrackType.CORNER_UP_RIGHT -> RIGHT
+            DOWN to TrackType.CORNER_UP_RIGHT -> LEFT
+            LEFT to TrackType.CORNER_UP_RIGHT -> DOWN
+            RIGHT to TrackType.CORNER_UP_RIGHT -> UP
 
-            UP to 4 -> LEFT
-            DOWN to 4 -> RIGHT
-            LEFT to 4 -> UP
-            RIGHT to 4 -> DOWN
+            UP to TrackType.CORNER_DOWN_RIGHT -> LEFT
+            DOWN to TrackType.CORNER_DOWN_RIGHT -> RIGHT
+            LEFT to TrackType.CORNER_DOWN_RIGHT -> UP
+            RIGHT to TrackType.CORNER_DOWN_RIGHT -> DOWN
 
             else -> velocity
         }
@@ -81,8 +89,9 @@ class Cart(var position: Point2D, private var velocity: Point2D, private val tra
         if (crashed) return
         position += velocity
         when (tracks[position]) {
-            0 -> turnForIntersection()
-            3, 4 -> turnForCorner()
+            TrackType.INTERSECTION -> turnForIntersection()
+            TrackType.CORNER_UP_RIGHT, TrackType.CORNER_DOWN_RIGHT -> turnForCorner()
+            else -> {}
         }
     }
 }
@@ -90,7 +99,7 @@ class Cart(var position: Point2D, private var velocity: Point2D, private val tra
 object Solution13 : Solution<List<Cart>>(AOC_YEAR, 13) {
     override fun getInput(handler: InputHandler): List<Cart> {
         val lines = handler.getInput("\n", trim = false)
-        val tracks = mutableMapOf<Point2D, Int>()
+        val tracks = mutableMapOf<Point2D, TrackType>()
         val cartData = mutableListOf<PairOf<Point2D>>()
         for ((i, line) in lines.withIndex()) {
             for ((j, char) in line.withIndex()) {
