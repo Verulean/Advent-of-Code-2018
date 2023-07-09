@@ -31,12 +31,12 @@ enum class TrackType {
 
 private val charToTrack = mapOf(
     '+' to TrackType.INTERSECTION,
-    '-' to TrackType.HORIZONTAL,
-    '>' to TrackType.HORIZONTAL,
-    '<' to TrackType.HORIZONTAL,
-    '|' to TrackType.VERTICAL,
-    '^' to TrackType.VERTICAL,
-    'v' to TrackType.VERTICAL,
+//    '-' to TrackType.HORIZONTAL,
+//    '>' to TrackType.HORIZONTAL,
+//    '<' to TrackType.HORIZONTAL,
+//    '|' to TrackType.VERTICAL,
+//    '^' to TrackType.VERTICAL,
+//    'v' to TrackType.VERTICAL,
     '/' to TrackType.CORNER_UP_RIGHT,
     '\\' to TrackType.CORNER_DOWN_RIGHT
 )
