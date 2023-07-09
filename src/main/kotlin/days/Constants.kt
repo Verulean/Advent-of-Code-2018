@@ -12,5 +12,6 @@ val Solutions = arrayOf(
     Solution08,
     Solution09,
     Solution10,
-    Solution11
+    Solution11,
+    Solution12
 )
