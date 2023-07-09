@@ -101,7 +101,6 @@ object Solution12: Solution<Pair<String, Map<String, Char>>>(AOC_YEAR, 12) {
         while (true) {
             if (seenStates.contains(state)) {
                 val (startGeneration, startOffset) = seenStates.getValue(state)
-                println("Gen $startGeneration to $generation, offset $startOffset to $offset")
                 val scorer = CyclicScorer(
                     seenStates,
                     startGeneration,
