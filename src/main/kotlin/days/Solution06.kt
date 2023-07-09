@@ -3,13 +3,13 @@ package days
 import adventOfCode.InputHandler
 import adventOfCode.Solution
 import adventOfCode.util.Counter
+import adventOfCode.util.PairOf
+import adventOfCode.util.Point2D
 import adventOfCode.util.ints
 import kotlin.math.absoluteValue
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
-
-private typealias Point = Pair<Int, Int>
 
 private fun <T> Sequence<T>.identical(): Boolean {
     val first: T
@@ -21,11 +21,11 @@ private fun <T> Sequence<T>.identical(): Boolean {
     return this.all { it == first }
 }
 
-object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
-    private val directions = arrayOf(Point(1, 0), Point(0, 1), Point(-1, 0), Point(0, -1))
+object Solution06 : Solution<List<Point2D>>(AOC_YEAR, 6) {
+    private val directions = arrayOf(Point2D(1, 0), Point2D(0, 1), Point2D(-1, 0), Point2D(0, -1))
     private const val safeDistance = 10_000
 
-    override fun getInput(handler: InputHandler): List<Point> {
+    override fun getInput(handler: InputHandler): List<Point2D> {
         return handler.getInput("\n") { line ->
             line.ints { Pair(it[0], it[1]) }
         }
@@ -36,7 +36,7 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return z.sign
     }
 
-    private fun onBoundary(p1: Point, p2: Point, points: List<Point>): Boolean {
+    private fun onBoundary(p1: Point2D, p2: Point2D, points: List<Point2D>): Boolean {
         val (x1, y1) = p1
         val (x2, y2) = p2
         val u1 = x2 - x1
@@ -53,13 +53,13 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return (x2 - x1).absoluteValue + (y2 - y1).absoluteValue
     }
 
-    private fun manhattan(p1: Point, p2: Point): Int {
+    private fun manhattan(p1: Point2D, p2: Point2D): Int {
         val (x1, y1) = p1
         val (x2, y2) = p2
         return manhattan(x1, y1, x2, y2)
     }
 
-    private fun boundingRect(points: Set<Point>, padding: Int = 0): List<Int> {
+    private fun boundingRect(points: Set<Point2D>, padding: Int = 0): List<Int> {
         val (x0, y0) = points.first()
         var xMin = x0
         var xMax = x0
@@ -74,10 +74,10 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return listOf(xMin - padding, xMax + padding, yMin - padding, yMax + padding)
     }
 
-    private fun uniqueMinOrNull(distances: Map<Point, Int>): Point? {
+    private fun uniqueMinOrNull(distances: Map<Point2D, Int>): Point2D? {
         if (distances.isEmpty()) return null
         val first = distances.entries.first()
-        var minPoint: Point? = first.key
+        var minPoint: Point2D? = first.key
         var minDist = first.value
         for ((point, dist) in distances) {
             when {
@@ -94,11 +94,11 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return minPoint
     }
 
-    private fun buildNearestMap(interior: MutableSet<Point>, points: Set<Point>, padding: Int = 0): Pair<HashMap<Point, Point?>, Point?> {
+    private fun buildNearestMap(interior: MutableSet<Point2D>, points: Set<Point2D>, padding: Int = 0): Pair<HashMap<Point2D, Point2D?>, Point2D?> {
         val (xMin, xMax, yMin, yMax) = boundingRect(points, padding)
-        var safeSeed: Point? = null
+        var safeSeed: Point2D? = null
         val start = interior.first()
-        val nearestPoint = HashMap<Point, Point?>()
+        val nearestPoint = HashMap<Point2D, Point2D?>()
         nearestPoint[start] = start
         val queue = mutableSetOf(start)
         while (queue.size > 0) {
@@ -124,7 +124,7 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return Pair(nearestPoint, safeSeed)
     }
 
-    private fun safeArea(points: Set<Point>, start: Point?): Int {
+    private fun safeArea(points: Set<Point2D>, start: Point2D?): Int {
         if (start == null) return 0
         val safeRegion = mutableSetOf(start)
         val queue = mutableSetOf(start)
@@ -143,7 +143,7 @@ object Solution06 : Solution<List<Point>>(AOC_YEAR, 6) {
         return safeRegion.size
     }
 
-    override fun solve(input: List<Point>): Pair<Any?, Any?> {
+    override fun solve(input: List<Point2D>): PairOf<Int> {
         val points = input.toSet()
         val n = input.size
         val interior = input.toMutableSet()

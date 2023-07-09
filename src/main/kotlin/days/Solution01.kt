@@ -2,11 +2,12 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
+import adventOfCode.util.PairOf
 
 object Solution01 : Solution<List<Int>>(AOC_YEAR, 1) {
     override fun getInput(handler: InputHandler) = handler.getInput(delimiter = "\n", transform = String::toInt)
 
-    override fun solve(input: List<Int>): Pair<Int, Int> {
+    override fun solve(input: List<Int>): PairOf<Int> {
         // Part 1
         val ans1 = input.sum()
         // Part 2

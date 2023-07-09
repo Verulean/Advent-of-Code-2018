@@ -2,9 +2,7 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
-import adventOfCode.util.Counter
-import adventOfCode.util.DefaultHashMap
-import adventOfCode.util.ints
+import adventOfCode.util.*
 
 data class DateTime(val year: Int, val month: Int, val day: Int, val hour: Int, val minute: Int) : Comparable<DateTime> {
     override operator fun compareTo(other: DateTime): Int {
@@ -54,13 +52,13 @@ object Solution04 : Solution<List<GuardEvent>>(AOC_YEAR, 4) {
         return events
     }
 
-    private fun getSleepMetrics(sleepTimes: Counter<Int>): Triple<Int, Int, Int> {
+    private fun getSleepMetrics(sleepTimes: Counter<Int>): TripleOf<Int> {
         val totalSleep = sleepTimes.values.sum()
         val (maxMinute, maxTimesSlept) = sleepTimes.maxBy { it.value }
         return Triple(totalSleep, maxTimesSlept, maxMinute)
     }
 
-    override fun solve(input: List<GuardEvent>): Pair<Int, Int> {
+    override fun solve(input: List<GuardEvent>): PairOf<Int> {
         // Part 1
         val guardSleepTimes = DefaultHashMap<Int, Counter<Int>> { Counter() }
         var (lastInstant, _, currentId) = input[0]

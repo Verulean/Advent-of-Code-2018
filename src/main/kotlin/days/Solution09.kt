@@ -2,10 +2,11 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
+import adventOfCode.util.PairOf
 import adventOfCode.util.ints
 
-object Solution09 : Solution<Pair<Int, Int>>(AOC_YEAR, 9) {
-    override fun getInput(handler: InputHandler): Pair<Int, Int> {
+object Solution09 : Solution<PairOf<Int>>(AOC_YEAR, 9) {
+    override fun getInput(handler: InputHandler): PairOf<Int> {
         return handler.getInput().ints { Pair(it[0], it[1]) }
     }
 
@@ -35,7 +36,7 @@ object Solution09 : Solution<Pair<Int, Int>>(AOC_YEAR, 9) {
         return scores.max()
     }
 
-    override fun solve(input: Pair<Int, Int>): Pair<UInt, UInt> {
+    override fun solve(input: PairOf<Int>): PairOf<UInt> {
         val (players, maxScore) = input
         return Pair(
             winningScore(players, maxScore),

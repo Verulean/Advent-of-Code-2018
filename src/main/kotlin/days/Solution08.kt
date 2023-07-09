@@ -2,6 +2,7 @@ package days
 
 import adventOfCode.InputHandler
 import adventOfCode.Solution
+import adventOfCode.util.PairOf
 import adventOfCode.util.ints
 
 private data class Node(
@@ -44,7 +45,7 @@ object Solution08 : Solution<List<Int>>(AOC_YEAR, 8) {
         return node
     }
 
-    override fun solve(input: List<Int>): Pair<Int, Int> {
+    override fun solve(input: List<Int>): PairOf<Int> {
         val buffer = input.toMutableList()
         val root = buildNode(buffer)
         return Pair(metadataSum, root.value)
