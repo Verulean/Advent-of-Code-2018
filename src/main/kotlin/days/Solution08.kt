@@ -16,8 +16,8 @@ private data class Node(
                 metadata
                     .asSequence()
                     .map(Int::dec)
-                    .filter(children.indices::contains)
-                    .map(children::get)
+                    .map(children::getOrNull)
+                    .filterNotNull()
                     .map(Node::value)
                     .sum()
         }
